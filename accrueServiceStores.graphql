@@ -20,5 +20,5 @@ input StoreSearchLocationInput {
   city: String!
   state: String!
   zipCode: String!
-  country: String = "us"
+  country: String!
 }
