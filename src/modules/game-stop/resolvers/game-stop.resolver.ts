@@ -4,25 +4,23 @@ import {
   StoreLocation,
   StoreSearchLocationInput,
 } from '../../../shared/dto/store.dto';
+import { GameStopService } from '../services/game-stop.service';
 
 @Resolver()
 export class GameStopResolver {
+  constructor(private readonly gameStopService: GameStopService) {}
+
   @Query(() => String)
   public gameStopGreeting(): string {
-    return 'Welcome to the gamestop resolver';
+    return this.gameStopService.greeting();
   }
 
   @Query(() => [StoreLocation])
   public async getLocalGameStopStores(
-    @Args('address') location: StoreSearchLocationInput,
+    @Args('address') address: StoreSearchLocationInput,
   ): Promise<StoreLocation[]> {
-    console.log(location);
+    console.log(address);
 
-    return [
-      {
-        storeName: 'Testing Store',
-        streetAddress: '123 main street',
-      },
-    ];
+    return this.gameStopService.allNearbyLocations(address);
   }
 }
