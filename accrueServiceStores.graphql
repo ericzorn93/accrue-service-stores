@@ -2,6 +2,23 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+"""Main Store Input Type"""
+type StoreLocation {
+  storeName: String!
+  streetAddress: String!
+}
+
 type Query {
-  gamestopGreeting: String!
+  gameStopGreeting: String!
+  getLocalGameStopStores(address: StoreSearchLocationInput!): [StoreLocation!]!
+}
+
+"""Input Location Type to Search for Stores"""
+input StoreSearchLocationInput {
+  houseNumber: Int!
+  streetName: String!
+  city: String!
+  state: String!
+  zipCode: String!
+  country: String = "us"
 }
