@@ -3,12 +3,15 @@ import { NestFactory } from '@nestjs/core';
 import * as helmet from 'helmet';
 
 import { AppModule } from './app.module';
+import { __dev__ } from './utils/isDev.util';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // Register Middleware
-  app.use(helmet());
+  // Register Middleware For Development
+  if (!__dev__) {
+    app.use(helmet());
+  }
 
   const PORT = process.env.PORT || 5000;
   await app.listen(PORT);

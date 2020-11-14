@@ -4,20 +4,22 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { GameStopModule } from './modules/game-stop/game-stop.module';
-import { IGQLContext } from './types/gqlContext.d';
+import { IAccrueStoresGQLContext } from './types/accrueStoresGqlContext';
+import { LocationModule } from './modules/location/location.module';
 
 @Module({
   imports: [
     GraphQLModule.forRoot({
       playground: true,
       autoSchemaFile: './accrueServiceStores.graphql',
-      context: ({ req, res }): IGQLContext => ({
+      context: ({ req, res }): IAccrueStoresGQLContext => ({
         req,
         res,
         appName: 'accure-service-stores',
       }),
     }),
     GameStopModule,
+    LocationModule,
   ],
   controllers: [AppController],
   providers: [AppService],

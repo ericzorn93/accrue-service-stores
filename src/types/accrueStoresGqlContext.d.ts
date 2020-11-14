@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-export interface IGQLContext {
+export interface IAccrueStoresGQLContext {
   req: Request;
   res: Response;
   appName: 'accure-service-stores';
