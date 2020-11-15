@@ -2,6 +2,7 @@ import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
 import {
+  GameStopProductAvailableResponse,
   GameStopStoreLocation,
   GameStopStoreLocationResponse,
   StoreSearchLocationInput,
@@ -32,5 +33,19 @@ export class GameStopController {
     );
 
     return locationResponse;
+  }
+
+  @Post('/product-inventory')
+  @ApiOkResponse({ type: [GameStopProductAvailableResponse] })
+  public async getGameStopProductInventory(
+    @Body('address') address: StoreSearchLocationInput,
+    @Body('productId') productId: string,
+  ): Promise<GameStopProductAvailableResponse[]> {
+    const storesContainingAvailableProduct = await this.gameStopService.getProductInventory(
+      address,
+      productId,
+    );
+
+    return storesContainingAvailableProduct;
   }
 }

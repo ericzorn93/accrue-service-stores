@@ -30,7 +30,7 @@ export class LocationService {
     }
 
     this.logger.debug(
-      `Finding location for address ${JSON.stringify(address)}`,
+      `Finding GameStop locations for address ${JSON.stringify(address)}`,
     );
 
     const { data } = await this.httpService

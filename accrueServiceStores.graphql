@@ -36,9 +36,67 @@ type GameStopStoreLocationResponse {
   locations: [GameStopStoreLocation!]!
 }
 
+"""Nearest GameStop Store Details"""
+type NearestGameStopStoreDetails {
+  InStorePickUpMessageNextDay: String!
+  address1: Boolean!
+  address2: String
+  inventoryAvailable: Int!
+  limitedStockMessage: Boolean!
+  nearestStoreId: Boolean!
+  nearestStoreText: Boolean!
+  postalCode: Boolean!
+  sku: Boolean!
+  stateCode: Boolean!
+  storeHours: Boolean!
+  storeOperationHours: Boolean!
+}
+
+"""GameStop Product"""
+type GameStopProduct {
+  allowBOPS: Boolean!
+  allowHOPS: Boolean!
+  allowStoreLookup: Boolean!
+  enablePickupBOPS: Boolean!
+  enablePickupCheckout: Boolean!
+  enablePickupPDP: Boolean!
+  enablePickupTile: Boolean!
+  id: String!
+  inStock: Boolean!
+  inStockCount: Int!
+  isBOPSPreOrder: Boolean!
+  isISPU: Boolean!
+  nearestStoreDetailsObj: NearestGameStopStoreDetails!
+  onlyBOPS: Boolean!
+  onlyHOPS: Boolean!
+  onlyISPU: Boolean!
+  showPdpStoreLocatorIcon: Boolean!
+  condition: String!
+}
+
+"""Maps whether the GameStop product is available and which store"""
+type GameStopProductAvailableResponse {
+  isAvailable: Boolean!
+  storeId: String!
+  storeDetails: String!
+  productId: String!
+  isAvailableForPickup: Boolean!
+  fetchedOn: String!
+}
+
 type Query {
+  """Standard GameStop Greeting"""
   gameStopGreeting: String!
+
+  """
+  GameStop locations from the GameStop API, based on the current user location.
+  """
   getLocalGameStopStores(address: StoreSearchLocationInput!): GameStopStoreLocationResponse!
+
+  """
+  GameStop locations from the GameStop API, based on the current user location.
+  """
+  getGameStopProductInventory(productId: String!, address: StoreSearchLocationInput!): [GameStopProductAvailableResponse!]!
 }
 
 """Input Location Type to Search for Stores"""

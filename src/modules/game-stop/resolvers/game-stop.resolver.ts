@@ -1,6 +1,7 @@
 import { Args, Query, Resolver } from '@nestjs/graphql';
 
 import {
+  GameStopProductAvailableResponse,
   GameStopStoreLocationResponse,
   StoreSearchLocationInput,
 } from '../../../shared/dto/store.dto';
@@ -10,12 +11,15 @@ import { GameStopService } from '../services/game-stop.service';
 export class GameStopResolver {
   constructor(private readonly gameStopService: GameStopService) {}
 
-  @Query(() => String)
+  @Query(() => String, { description: 'Standard GameStop Greeting' })
   public gameStopGreeting(): string {
     return this.gameStopService.greeting();
   }
 
-  @Query(() => GameStopStoreLocationResponse)
+  @Query(() => GameStopStoreLocationResponse, {
+    description:
+      'GameStop locations from the GameStop API, based on the current user location.',
+  })
   public async getLocalGameStopStores(
     @Args('address') address: StoreSearchLocationInput,
   ): Promise<GameStopStoreLocationResponse> {
@@ -24,5 +28,21 @@ export class GameStopResolver {
     );
 
     return locationResponse;
+  }
+
+  @Query(() => [GameStopProductAvailableResponse], {
+    description:
+      'GameStop locations from the GameStop API, based on the current user location.',
+  })
+  public async getGameStopProductInventory(
+    @Args('address') address: StoreSearchLocationInput,
+    @Args('productId') productId: string,
+  ): Promise<GameStopProductAvailableResponse[]> {
+    const storesContainingAvailableProduct = await this.gameStopService.getProductInventory(
+      address,
+      productId,
+    );
+
+    return storesContainingAvailableProduct;
   }
 }
