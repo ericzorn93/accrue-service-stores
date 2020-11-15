@@ -4,7 +4,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { GameStopModule } from './modules/game-stop/game-stop.module';
-import { IAccrueStoresGQLContext } from './types/accrueStoresGqlContext';
+import { IAccrueStoresGQLContext } from './shared/types/accrueStoresGqlContext';
 import { LocationModule } from './modules/location/location.module';
 
 @Module({

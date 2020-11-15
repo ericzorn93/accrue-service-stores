@@ -38,8 +38,8 @@ export class LocationService {
     const { lat, lng } = northeast;
 
     return {
-      latitude: lat,
-      longitude: lng,
+      lat,
+      lng,
     };
   }
 }

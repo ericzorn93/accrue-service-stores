@@ -1,7 +1,11 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 
-import { StoreLocation, StoreSearchLocationInput } from 'src/shared/dto';
+import {
+  GameStopStoreLocation,
+  GameStopStoreLocationResponse,
+  StoreSearchLocationInput,
+} from 'src/shared/dto';
 import { GameStopService } from '../services/game-stop.service';
 
 @ApiTags('/game-stop')
@@ -17,12 +21,16 @@ export class GameStopController {
 
   @Post('/nearby-locations')
   @ApiOkResponse({
-    type: [StoreLocation],
+    type: [GameStopStoreLocation],
     description: 'All GameStop stores nearby to provided location',
   })
   public async getLocalGameStopStores(
     @Body() address: StoreSearchLocationInput,
-  ): Promise<StoreLocation[]> {
-    return this.gameStopService.allNearbyLocations(address);
+  ): Promise<GameStopStoreLocationResponse> {
+    const locationResponse = await this.gameStopService.allNearbyLocations(
+      address,
+    );
+
+    return locationResponse;
   }
 }

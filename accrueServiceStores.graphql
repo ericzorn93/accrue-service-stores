@@ -2,15 +2,43 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+"""Latitude and Longitude of current user's address"""
+type LocationCoords {
+  lat: String!
+  lng: String!
+}
+
 """Main Store Input Type"""
-type StoreLocation {
-  storeName: String!
-  streetAddress: String!
+type GameStopStoreLocation {
+  ID: String!
+  name: String!
+  address1: String!
+  address2: String!
+  city: String!
+  postalCode: String!
+  latitude: Float!
+  longitude: Float!
+  phone: String!
+  stateCode: String!
+  countryCode: String!
+  storeHours: String!
+  image: String!
+  storeOperationHours: String!
+  storeBrand: String!
+  storeMode: String!
+  brandIcon: String!
+  isPreferredStore: String!
+}
+
+"""Store Location Response with User Coords from GameStop"""
+type GameStopStoreLocationResponse {
+  userCoords: LocationCoords!
+  locations: [GameStopStoreLocation!]!
 }
 
 type Query {
   gameStopGreeting: String!
-  getLocalGameStopStores(address: StoreSearchLocationInput!): [StoreLocation!]!
+  getLocalGameStopStores(address: StoreSearchLocationInput!): GameStopStoreLocationResponse!
 }
 
 """Input Location Type to Search for Stores"""
