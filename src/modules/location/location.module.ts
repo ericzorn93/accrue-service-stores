@@ -7,10 +7,11 @@ import { LocationService } from './services/location.service';
   imports: [
     HttpModule.registerAsync({
       useFactory: async () => {
+        const googleMapsBaseApiUrl = config.get<string>('google.BASE_API_URL');
         const googleMapsApiKey = config.get<string>('google.MAPS_API_KEY');
 
         return {
-          baseURL: 'https://maps.googleapis.com/maps/api',
+          baseURL: googleMapsBaseApiUrl,
           params: {
             key: googleMapsApiKey,
           },

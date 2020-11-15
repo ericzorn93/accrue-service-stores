@@ -1,4 +1,5 @@
 import { HttpModule, Module } from '@nestjs/common';
+import * as config from 'config';
 
 import { GameStopResolver } from './resolvers/game-stop.resolver';
 import { GameStopService } from './services/game-stop.service';
@@ -7,9 +8,14 @@ import { LocationModule } from '../location/location.module';
 
 @Module({
   imports: [
-    HttpModule.register({
-      baseURL:
-        'https://www.gamestop.com/on/demandware.store/Sites-gamestop-us-Site/default',
+    HttpModule.registerAsync({
+      useFactory: () => {
+        const gamestopBaseApiUrl = config.get<string>('gameStop.BASE_API_URL');
+
+        return {
+          baseURL: gamestopBaseApiUrl,
+        };
+      },
     }),
     LocationModule,
   ],
