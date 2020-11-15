@@ -5,6 +5,9 @@
   "author": "Eric Zorn <zornwebdev@gmail.com>",
   "private": true,
   "license": "UNLICENSED",
+  "engines": {
+    "node": ">=14"
+  },
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
