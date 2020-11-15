@@ -12,7 +12,7 @@ async function bootstrap() {
 
   // Register Middleware For Development
   if (!__dev__) {
-    app.use(helmet());
+    app.use(helmet.hidePoweredBy());
   }
 
   // Open API/Swagger
